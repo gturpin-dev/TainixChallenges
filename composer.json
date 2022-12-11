@@ -1,0 +1,15 @@
+{
+    "name": "gturpin/tainix_challenges",
+    "autoload": {
+        "psr-4": {
+            "Gturpin\\TainixChallenges\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "gturpin-dev",
+            "email": "guillaume.turpin45@gmail.com"
+        }
+    ],
+    "require": {}
+}
