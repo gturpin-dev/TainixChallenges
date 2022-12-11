@@ -30,4 +30,21 @@ abstract class Challenge {
 	 * @return mixed The response to the challenge
 	 */
 	abstract public function solve() : mixed;
+
+	/**
+	 * SGetting the data stored in the $filename file
+	 *
+	 * @param string $filename The filename to load from the Challenges/CHALLENGE_CODE/ directory
+	 *
+	 * @return array The data from the file
+	 */
+	protected function get_data_test( string $filename = 'data.json' ) {
+		$filename = __DIR__ . '/Challenges/' . $this->challenge_code . '/' . $filename;
+
+		if ( ! file_exists( $filename ) ) {
+			throw new \Exception( 'File not found: ' . $filename );
+		}
+
+		return json_decode( file_get_contents( $filename ), true );
+	}
 }
