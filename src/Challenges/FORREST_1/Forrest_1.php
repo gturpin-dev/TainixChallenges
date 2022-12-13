@@ -10,24 +10,20 @@ use Gturpin\TainixChallenges\Challenge;
 final class Forrest_1 extends Challenge {
 	
 	public function solve() : mixed {
-		$combinaison = $this->data['depart'] ?? 0;
-		$path        = $this->data['chemin'] ?? [];
+		$bornes               = $this->data['kms'] ?? [];
+		$runners              = $this->data['runners'] ?? [];
+		$stop                 = $this->data['stop'] ?? 0;
+		$score                = $stop ?: 0;
+		$runners_with_forrest = 0;
 
-		foreach ( $path as $step ) {
-			$step_sign = substr( $step, 0, 1 );
-			$step_size = strlen( $step );
-			$operation = 10 ** ( $step_size - 1 );
+		foreach ( $bornes as $i => $current_borne ) {
+			$runners_with_forrest += $runners[ $i ] ?? 0;
+			$next_borne           = $bornes[ $i + 1 ] ?? $stop;
+			$km_to_next_borne	  = $next_borne - $current_borne;
 
-			switch ( $step_sign ) {
-				case '+':
-					$combinaison += $operation;
-					continue 2;
-				case '-':
-					$combinaison -= $operation;
-					continue 2;
-			}
+			$score += $km_to_next_borne * $runners_with_forrest;
 		}
 
-		return $combinaison;
+		return $score;
 	}
 }
