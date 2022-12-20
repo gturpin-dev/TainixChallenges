@@ -10,9 +10,6 @@ use Gturpin\TainixChallenges\Challenge;
 final class Football_3 extends Challenge {
 
 	public function solve() : mixed {
-		$this->data = $this->get_data_test();
-		echo '<pre>' . print_r( $this->data, true ) . '</pre>';
-
 		$teams         = $this->data['group'] ?? [];
 		$scores        = $this->data['scores'] ?? [];
 		$match_handler = new Match_Handler( $teams );
@@ -22,10 +19,10 @@ final class Football_3 extends Challenge {
 			$match_handler->add_score( $score );
 		}
 
-		echo '<pre>' . print_r( $match_handler->get_ranks(), true ) . '</pre>';
+		$response = $match_handler->get_ranks();
+		$response = array_flip( $response );
+		$response = implode( '', $response );
 
-
-		// die;
-		return 'ALLSLOITAREP';
+		return $response;
 	}
 }

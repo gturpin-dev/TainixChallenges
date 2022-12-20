@@ -53,16 +53,11 @@ final class Match_Handler {
 
 		// If there is more than one team with the highest score, it's a draw => add 1 point to each team
 		if ( count( $winning_team ) > 1 ) {
-			foreach ( $winning_team as $team ) {
-				$this->teams[ $team ] += 1;
-			}
+			array_map( fn( $team ) => $this->teams[ $team ] += 1, $winning_team );
 		} else {
+			$winning_team = $winning_team[ array_key_first( $winning_team ) ];
 			$this->teams[ $winning_team ] += 3;
 		}
-
-		echo '<pre>' . print_r( $score, true ) . '</pre>';
-		var_dump( $winning_team );
-		die;
 	}
 
 	/**
@@ -71,7 +66,7 @@ final class Match_Handler {
 	 * @return array
 	 */
 	public function get_ranks() : array {
-		asort( $this->teams );
+		arsort( $this->teams );
 		
 		return $this->teams;
 	}
