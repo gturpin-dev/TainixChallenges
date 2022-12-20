@@ -4,6 +4,9 @@ namespace Gturpin\TainixChallenges\Challenges\FOOTBALL_3;
 
 final class Match_Handler {
 
+	private const WIN_POINTS  = 3;
+	private const DRAW_POINTS = 1;
+
 	private array $teams = [];
 	
 	public function __construct( array $teams ) {
@@ -20,7 +23,7 @@ final class Match_Handler {
 	 * @return array
 	 */
 	public function parse_score( string $score ) : array {
-		[ $team1, $team2, $score1, $score2 ] = array_pad( explode( '_', $score ), 4, '_' );
+		[ $team1, $team2, $score1, $score2 ] = array_pad( explode( '_', $score ), 4, null );
 
 		$parsed_score = [
 			$team1 => (int) $score1,
@@ -53,10 +56,10 @@ final class Match_Handler {
 
 		// If there is more than one team with the highest score, it's a draw => add 1 point to each team
 		if ( count( $winning_team ) > 1 ) {
-			array_map( fn( $team ) => $this->teams[ $team ] += 1, $winning_team );
+			array_map( fn( $team ) => $this->teams[ $team ] += self::DRAW_POINTS, $winning_team );
 		} else {
 			$winning_team = $winning_team[ array_key_first( $winning_team ) ];
-			$this->teams[ $winning_team ] += 3;
+			$this->teams[ $winning_team ] += self::WIN_POINTS;
 		}
 	}
 
