@@ -93,6 +93,7 @@ final class Football_3Test extends TestCase {
 
 	/**
 	 * Test multiple results of matchs and the associated ranks
+	 * @group Methods
 	 *
 	 * @return void
 	 */
@@ -131,6 +132,78 @@ final class Football_3Test extends TestCase {
 			'REP' => 0,
 			'ALL' => 1,
 			'SLO' => 2
+		], $match_handler->get_ranks() );
+	}
+
+	/**
+	 * @group Methods
+	 *
+	 * @return void
+	 */
+	public function test_match_home_win() : void {
+		$match_handler = new Match_Handler( [
+			'ITA',
+			'REP',
+			'ALL',
+			'SLO'
+		] );
+
+		$score = $match_handler->parse_score( 'ITA_REP_3_2' );
+		$match_handler->add_score( $score );
+
+		$this->assertEquals( [
+			'ITA' => 3,
+			'REP' => 0,
+			'ALL' => 0,
+			'SLO' => 0
+		], $match_handler->get_ranks() );
+	}
+
+	/**
+	 * @group Methods
+	 *
+	 * @return void
+	 */
+	public function test_match_away_win() : void {
+		$match_handler = new Match_Handler( [
+			'ITA',
+			'REP',
+			'ALL',
+			'SLO'
+		] );
+
+		$score = $match_handler->parse_score( 'ITA_REP_2_3' );
+		$match_handler->add_score( $score );
+
+		$this->assertEquals( [
+			'ITA' => 0,
+			'REP' => 3,
+			'ALL' => 0,
+			'SLO' => 0
+		], $match_handler->get_ranks() );
+	}
+
+	/**
+	 * @group Methods
+	 *
+	 * @return void
+	 */
+	public function test_match_draw() : void {
+		$match_handler = new Match_Handler( [
+			'ITA',
+			'REP',
+			'ALL',
+			'SLO'
+		] );
+
+		$score = $match_handler->parse_score( 'ITA_REP_2_2' );
+		$match_handler->add_score( $score );
+
+		$this->assertEquals( [
+			'ITA' => 1,
+			'REP' => 1,
+			'ALL' => 0,
+			'SLO' => 0
 		], $match_handler->get_ranks() );
 	}
 }
