@@ -19,10 +19,6 @@ final class Football_3 extends Challenge {
 			$match_handler->add_score( $score );
 		}
 
-		$response = $match_handler->get_ranks();
-		$response = array_flip( $response );
-		$response = implode( '', $response );
-
-		return $response;
+		return implode( '', array_keys( $match_handler->get_ranks() ) );
 	}
 }
