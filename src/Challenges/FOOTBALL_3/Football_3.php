@@ -3,6 +3,7 @@
 namespace Gturpin\TainixChallenges\Challenges\FOOTBALL_3;
 
 use Gturpin\TainixChallenges\Challenge;
+use Gturpin\TainixChallenges\Challenges\FOOTBALL_3\Match_Handler;
 
 /**
  * @link https://tainix.fr/challenge/Euro-2020-en-2021
