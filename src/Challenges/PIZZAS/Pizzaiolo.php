@@ -8,22 +8,28 @@ namespace Gturpin\TainixChallenges\Challenges\PIZZAS;
  */
 abstract class Pizzaiolo {
 
-	public static self $instance;
+	protected function __construct() {
+		// to override in child classes
+	}
 
-	/**
-	 * Pizzaiolo constructor.
-	 */
-	protected function __construct() {}
-
-	// Prevent cloning
+	// prevent cloning
 	private function __clone() {}
+	
+	/**
+	 * Return the current instance of the child class
+	 *
+	 * @return Pizzaiolo the child class
+	 */
+	final public static function get_instance(): self {
+		static $_instance = [];
 
-	public static function get_instance() : self {
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new static();
+		$called_class = get_called_class();
+
+		if ( ! array_key_exists( $called_class, $_instance ) ) {
+			$_instance[ $called_class ] = new $called_class();
 		}
 
-		return self::$instance;
+		return $_instance[ $called_class ];
 	}
 
 	/**
@@ -34,32 +40,6 @@ abstract class Pizzaiolo {
 	 * @return integer
 	 */
 	public abstract function prepare_pizza( Pizza $pizza ) : int;
-
-	/**
-	 * Create a pizzaiolo from a string
-	 *
-	 * @param string $pizzaiolo The pizzaiolo name
-	 *
-	 * @return self
-	 */
-	public static function create_from_string( string $pizzaiolo ) : self {
-		$pizzaiolo = ucfirst( strtolower( $pizzaiolo ) );
-		// replace every special character by its normal version (é => e)
-		$pizzaiolo = iconv( 'UTF-8', 'ASCII//TRANSLIT', $pizzaiolo );
-		$class     = __NAMESPACE__ . '\\Pizzaiolos\\' . $pizzaiolo;
-
-		if ( ! class_exists( $class ) ) {
-			throw new \Exception( 'Pizzaiolo : "' . $pizzaiolo . '" not found' );
-		}
-
-		var_dump( $pizzaiolo );
-		var_dump( $class );
-		var_dump( $class::get_instance() );
-		// die;
-		// var_dump( $class );
-		// return $class;
-		return $class::get_instance();
-	}
 
 	/**
 	 * Get the pizzaiolo name

@@ -14,15 +14,11 @@ final class Pizzas extends Challenge {
 	private const ENABLE_LOG = true;
 	
 	public function solve() : mixed {
-		$this->data = $this->get_data_test();
-
 		$ingredients        = $this->data['ingredients'];
 		$pizzas_ingredients = $this->data['pizzas'];
 		$pizzaiolos         = $this->data['pizzaiolos'];
 		$total_price        = 0;
 		
-		echo '<pre>' . print_r( $this->data, true ) . '</pre>';
-
 		// Transform the ingredients array into an array of Ingredient objects
 		$ingredients = array_map( function ( $ingredient ) {
 			return Ingredient::decode_ingredient( $ingredient );
@@ -41,16 +37,7 @@ final class Pizzas extends Challenge {
 
 			// Get the pizzaiolo for this pizza
 			$pizzaiolo = $pizzaiolos[ $index ] ?? null;
-			self::log( $pizzaiolo );
-			$pizzaiolo = Pizzaiolo::create_from_string( $pizzaiolo );
-			// self::log( $pizzaiolo->get_name() );
-			var_dump( $pizzaiolo );
-			self::log( '' );
-
-
-			$pizzaiolo = $pizzaiolo::get_instance();
-
-			continue;
+			$pizzaiolo = PizzaioloFactory::engage( $pizzaiolo );
 
 			if ( is_null( $pizzaiolo ) ) {
 				throw new \Exception( 'No pizzaiolo for this pizza' );
@@ -63,10 +50,10 @@ final class Pizzas extends Challenge {
 
 			$total_price += $price;
 		}
-		var_dump( $total_price );
-		die;
-		
-		die;
+
+		self::log( 'Total : ' . $total_price );
+
+		return $total_price;
 	}
 
 	/**
