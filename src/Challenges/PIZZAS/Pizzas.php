@@ -11,12 +11,14 @@ use Gturpin\TainixChallenges\Challenges\PIZZAS\Ingredient;
  */
 final class Pizzas extends Challenge {
 	
+	protected const USE_DATA_TEST = true;
+	
 	public function solve() : mixed {
 		$ingredients        = $this->data['ingredients'];
 		$pizzas_ingredients = $this->data['pizzas'];
 		$pizzaiolos         = $this->data['pizzaiolos'];
 		$total_price        = 0;
-		
+
 		// Transform the ingredients array into an array of Ingredient objects
 		$ingredients = array_map( function ( $ingredient ) {
 			return Ingredient::decode_ingredient( $ingredient );

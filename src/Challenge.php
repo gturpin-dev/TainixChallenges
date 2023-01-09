@@ -24,9 +24,18 @@ abstract class Challenge {
 	 */
 	protected const ENABLE_LOG = true;
 
+	/**
+	 * Enable the data test or not
+	 */
+	protected const USE_DATA_TEST = false;
+
 	public function __construct( string $challenge_code, array $data ) {
 		$this->challenge_code = $challenge_code;
 		$this->data           = $data;
+
+		if ( static::USE_DATA_TEST ) {
+			$this->data = $this->get_data_test();
+		}
 	}
 
 	/**
