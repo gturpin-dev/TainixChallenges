@@ -10,8 +10,6 @@ use Gturpin\TainixChallenges\Challenges\DBZ_3\Sayan;
  */
 final class Dbz_3 extends Challenge {
 	
-	private const ENABLE_LOG = false;
-	
 	public function solve() : mixed {
 		$data_vegeta  = Parser::parse( $this->data['vegeta'] ?? [] );
 		$data_sangoku = Parser::parse( $this->data['sangoku'] ?? [] );
@@ -42,21 +40,5 @@ final class Dbz_3 extends Challenge {
 			$vegeta->is_dead()                        => 'SANGOKU_' . $turn_count . '_' . $sangoku->count_special_attack_done(),
 			$sangoku->is_dead()                       => 'VEGETA_' . $turn_count . '_' . $vegeta->count_special_attack_done(),
 		};
-	}
-
-	/**
-	 * Print something
-	 *
-	 * @param mixed $result
-	 *
-	 * @return void
-	 */
-	public static function log( mixed $string ) : void {
-		if ( ! self::ENABLE_LOG ) {
-			return;
-		}
-
-		echo $string ?: '';
-		echo '<br>';
 	}
 }

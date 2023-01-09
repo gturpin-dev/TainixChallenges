@@ -11,8 +11,6 @@ use Gturpin\TainixChallenges\Challenges\PIZZAS\Ingredient;
  */
 final class Pizzas extends Challenge {
 	
-	private const ENABLE_LOG = true;
-	
 	public function solve() : mixed {
 		$ingredients        = $this->data['ingredients'];
 		$pizzas_ingredients = $this->data['pizzas'];
@@ -54,21 +52,5 @@ final class Pizzas extends Challenge {
 		self::log( 'Total : ' . $total_price );
 
 		return $total_price;
-	}
-
-	/**
-	 * Print something
-	 *
-	 * @param mixed $result
-	 *
-	 * @return void
-	 */
-	public static function log( mixed $string ) : void {
-		if ( ! self::ENABLE_LOG ) {
-			return;
-		}
-
-		echo $string ?: '';
-		echo '<br>';
 	}
 }

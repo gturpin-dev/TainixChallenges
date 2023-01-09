@@ -19,6 +19,11 @@ abstract class Challenge {
 	 */
 	protected array $data;
 
+	/**
+	 * Enable the log for this challenge or not
+	 */
+	protected const ENABLE_LOG = true;
+
 	public function __construct( string $challenge_code, array $data ) {
 		$this->challenge_code = $challenge_code;
 		$this->data           = $data;
@@ -46,5 +51,22 @@ abstract class Challenge {
 		}
 
 		return json_decode( file_get_contents( $filename ), true );
+	}
+
+	/**
+	 * Print something
+	 * Can be disabled by the ENABLE_LOG constant
+	 *
+	 * @param mixed $result
+	 *
+	 * @return void
+	 */
+	public static function log( mixed $string ) : void {
+		if ( ! static::ENABLE_LOG ) {
+			return;
+		}
+
+		echo $string ?: '';
+		echo '<br>';
 	}
 }
