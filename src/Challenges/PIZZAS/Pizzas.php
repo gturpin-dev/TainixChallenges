@@ -3,15 +3,15 @@
 namespace Gturpin\TainixChallenges\Challenges\PIZZAS;
 
 use Gturpin\TainixChallenges\Challenge;
+use Gturpin\TainixChallenges\Challenges\PIZZAS\Order;
 use Gturpin\TainixChallenges\Challenges\PIZZAS\Pizza;
-use Gturpin\TainixChallenges\Challenges\PIZZAS\Ingredient;
+use Gturpin\TainixChallenges\Challenges\PIZZAS\Ingredients;
+use Gturpin\TainixChallenges\Challenges\PIZZAS\PizzaioloFactory;
 
 /**
  * @link https://tainix.fr/challenge/YOLO-les-Pizzaiolos
  */
 final class Pizzas extends Challenge {
-	
-	protected const USE_DATA_TEST = true;
 	
 	public function solve() : mixed {
 		$ingredients        = $this->data['ingredients'];
@@ -19,38 +19,20 @@ final class Pizzas extends Challenge {
 		$pizzaiolos         = $this->data['pizzaiolos'];
 		$total_price        = 0;
 
-		// Transform the ingredients array into an array of Ingredient objects
-		$ingredients = array_map( function ( $ingredient ) {
-			return Ingredient::decode_ingredient( $ingredient );
-		}, $ingredients );
+		Ingredients::init( $ingredients );
+		$order = new Order();
 
-		// Set the ingredients name as key
-		$ingredients = array_combine( array_map( fn( $ingredient ) => $ingredient->get_name(), $ingredients ), $ingredients );
-		
 		foreach ( $pizzas_ingredients as $index => $pizza_ingredients ) {
+			$pizza = Pizza::create_from_ingredient_list( $pizza_ingredients );
 
-			// Transform the ingredients list into an array of Ingredient objects
-			$pizza_ingredients = explode( ',', $pizza_ingredients );
-			$pizza_ingredients = array_map( function ( $ingredient ) use ( $ingredients ) {
-				return $ingredients[ $ingredient ] ?? null;
-			}, $pizza_ingredients );
-
-			// Get the pizzaiolo for this pizza
-			$pizzaiolo = $pizzaiolos[ $index ] ?? null;
-			$pizzaiolo = PizzaioloFactory::engage( $pizzaiolo );
-
-			if ( is_null( $pizzaiolo ) ) {
-				throw new \Exception( 'No pizzaiolo for this pizza' );
-			}
-
-			$pizza = new Pizza( $pizza_ingredients );
-			$price = $pizzaiolo->prepare_pizza( $pizza );
+			// Get the right pizzaiolo for this pizza
+			$pizzaiolo = PizzaioloFactory::create_from_index( $index, $pizzaiolos );
+			$price = $order->order( $pizza, $pizzaiolo );
 
 			self::log( $pizzaiolo->get_name() . ' : ' . $price );
-
-			$total_price += $price;
 		}
 
+		$total_price = $order->get_addition();
 		self::log( 'Total : ' . $total_price );
 
 		return $total_price;
