@@ -59,5 +59,3 @@ sed -i "s/CHALLENGE_BOILERPLATE/$CHALLENGE_CODE/g" src/Challenges/$CHALLENGE_COD
 
 # Replace "Challenge_Boilerplate" in the new challenge file by CAMELCASE_CHALLENGE_CODE case sensitive
 sed -i "s/Challenge_Boilerplate/$CAMELCASE_CHALLENGE_CODE/g" src/Challenges/$CHALLENGE_CODE/$PHP_FILENAME
-
-exit 0
