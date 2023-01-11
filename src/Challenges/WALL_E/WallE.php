@@ -20,6 +20,8 @@ final class WallE {
 	 * Collect a waste
 	 *
 	 * @param int $waste Waste weight
+	 * 
+	 * @throws Wall_E_KOException If Wall-E is KO and can't collect waste
 	 *
 	 * @return boolean True if the waste has been collected, false otherwise
 	 */
@@ -58,7 +60,9 @@ final class WallE {
 	 * Maybe charge battery if it is under 20%
 	 * To charge, Wall-E need to be in a station
 	 * To be in a station, Wall-E need to go to the station which cost the same battery level as its speed
-	 * He must come back from the statin aswell
+	 * He must come back from the station aswell
+	 * 
+	 * @throws Wall_E_KOException If the speed is greater than the battery level
 	 *
 	 * @return boolean True if the battery has been charged, false otherwise
 	 */
@@ -67,11 +71,11 @@ final class WallE {
 
 		// Not enough battery to go to the station
 		if ( $this->speed >= $this->battery ) {
+			$this->battery = 0;
 			throw new Wall_E_KOException( 'Wall-E is KO' );
-			return false;
 		}
 		
-		// We can omit the outward journey, because we will charge and we check for the amount of battery left
+		// We can omit the outward journey, because we will charge and we checked for the amount of battery left before
 		$this->battery = 100;
 		$this->decrease_battery( $this->speed );
 
@@ -82,6 +86,8 @@ final class WallE {
 	 * Decrease battery level
 	 *
 	 * @param int $level Battery level to decrease
+	 * 
+	 * @throws Wall_E_KOException If battery is under 0
 	 *
 	 * @return void
 	 */

@@ -45,6 +45,5 @@ final class Wall_E extends Challenge {
 		self::log( 'Final Battery : ' . $wall_e->get_battery_level() );
 		
 		return $wall_e->get_battery_level();
-		die;
 	}
 }

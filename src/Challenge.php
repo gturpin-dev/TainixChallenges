@@ -81,6 +81,25 @@ abstract class Challenge {
 	}
 
 	/**
+	 * Build the object from a json file
+	 *
+	 * @param string $full_path The full path to the json file
+	 *
+	 * @return static
+	 */
+	public static function build_from_dataset( string $full_path ) : static {
+		$challenge_code = get_called_class();
+
+		if ( ! file_exists( $full_path ) ) {
+			throw new \Exception( 'Dataset file not found: ' . $full_path );
+		}
+
+		$data = json_decode( file_get_contents( $full_path ), true );
+		
+		return new static( $challenge_code, $data );
+	}
+
+	/**
 	 * Print something
 	 * Can be disabled by the ENABLE_LOG constant
 	 *
