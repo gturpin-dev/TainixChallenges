@@ -29,7 +29,7 @@ abstract class Challenge {
 	 */
 	protected const USE_DATA_TEST = false;
 
-	public function __construct( string $challenge_code, array $data ) {
+	public function __construct( string $challenge_code, array $data = [] ) {
 		$this->challenge_code = $challenge_code;
 		$this->data           = $data;
 
