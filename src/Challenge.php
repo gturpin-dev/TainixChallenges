@@ -46,20 +46,38 @@ abstract class Challenge {
 	abstract public function solve() : mixed;
 
 	/**
-	 * SGetting the data stored in the $filename file
+	 * Getting the data stored in the $filename file
 	 *
 	 * @param string $filename The filename to load from the Challenges/CHALLENGE_CODE/ directory
+	 * @param string|null $custom_path The custom path to load the file from
 	 *
 	 * @return array The data from the file
 	 */
-	protected function get_data_test( string $filename = 'data.json' ) {
-		$filename = __DIR__ . '/Challenges/' . $this->challenge_code . '/' . $filename;
+	public function get_data_test( string $filename = 'data.json', ?string $custom_path = null ) {
+		$path     = $custom_path ?? __DIR__ . '/Challenges/' . $this->challenge_code;
+		$filename = $path . '/' . $filename;
 
 		if ( ! file_exists( $filename ) ) {
 			throw new \Exception( 'File not found: ' . $filename );
 		}
 
 		return json_decode( file_get_contents( $filename ), true );
+	}
+
+	/**
+	 * Set data for the challenge
+	 * Useful for tests
+	 *
+	 * @param array $data
+	 *
+	 * @return void
+	 */
+	public function set_data( array $data ) : void {
+		$this->data = $data;
+	}
+
+	public function get_data() : array {
+		return $this->data;
 	}
 
 	/**
