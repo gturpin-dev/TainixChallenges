@@ -11,12 +11,10 @@ use Gturpin\TainixChallenges\Challenges\WALL_E\Exceptions\Wall_E_KOException;
  */
 final class Wall_E extends Challenge {
 	
-	protected const USE_DATA_TEST = true;
+	protected const USE_DATA_TEST = false;
 	protected const ENABLE_LOG    = true;
 	
 	public function solve() : mixed {
-		echo '<pre>' . print_r( $this->data, true ) . '</pre>';
-
 		$strength = $this->data['force'] ?? 0;
 		$speed    = $this->data['vitesse'] ?? 0;
 		$battery  = $this->data['batterie'] ?? 0;
@@ -27,22 +25,26 @@ final class Wall_E extends Challenge {
 			$waste = array_shift( $wastes );
 			
 			try {
-				$treated = $wall_e->collect( $waste );
-
-				if ( $treated ) {
+				if ( $wall_e->collect( $waste ) ) {
 					self::log( 'Waste collected : ' . $waste );
 				} else {
 					self::log( 'Waste not collected : ' . $waste );
 				}
 				
 				self::log( 'Battery level : ' . $wall_e->get_battery_level() );
+
+				if ( $wall_e->maybe_charge() ) {
+					self::log( 'CHARGE => Battery level : ' . $wall_e->get_battery_level() );
+				}
 			} catch ( Wall_E_KOException $e ) {
 				self::log( 'KO : ' . $e->getMessage() );
+				return 'KO';
 			}
 		}
 
 		self::log( 'Final Battery : ' . $wall_e->get_battery_level() );
 		
+		return $wall_e->get_battery_level();
 		die;
 	}
 }
