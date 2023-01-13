@@ -1,4 +1,4 @@
-.PHONY: help
+.PHONY: help, create_challenge, dev, test, test-group
 
 # Variables
 
