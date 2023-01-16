@@ -24,3 +24,6 @@ test-group: ## Run phpunit tests based on the group in "group" variable (make te
 
 lint: ## Run Psalm static analysis
 	./vendor/bin/psalm
+
+lint-group: ## Run Psalm static analysis based on the group in "group" variable (make lint-group group=GROUP_NAME)
+	./vendor/bin/psalm src/Challenges/$(group)/*.php
