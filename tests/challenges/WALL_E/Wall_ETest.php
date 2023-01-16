@@ -2,8 +2,10 @@
 
 use PHPUnit\Framework\TestCase;
 use Gturpin\TainixChallenges\Challenges\WALL_E\WallE;
+use Gturpin\TainixChallenges\Challenges\WALL_E\Waste;
 use Gturpin\TainixChallenges\Challenges\WALL_E\Wall_E;
 use Gturpin\TainixChallenges\Challenges\WALL_E\Exceptions\Wall_E_KOException;
+use Gturpin\TainixChallenges\Challenges\WALL_E\Exceptions\BatteryDownException;
 
 /**
  * @group WALL_E
@@ -19,20 +21,23 @@ class Wall_ETest extends TestCase {
 		parent::setUp();
 	}
 
+	private function get_consumed_battery_for_collect( WallE $wall_e, Waste $waste ) : int {
+		$battery = $wall_e->get_battery_level();
+		$wall_e->collect( $waste );
+		
+		return $battery - $wall_e->get_battery_level();
+	}
+	
 	public function test_strength_greater_than_waste() : void {
 		$wall_e = new WallE(
-			strength: 20,
-			speed   : 10,
-			battery : 100
+			strength       : 20,
+			speed          : 10,
+			current_battery: 100
 		);
 
-		$waste = 18;
+		$waste        = new Waste( 18 );
+		$battery_used = $this->get_consumed_battery_for_collect( $wall_e, $waste );
 
-		$battery      = $wall_e->get_battery_level();
-		$collected    = $wall_e->collect( $waste );
-		$battery_used = $battery - $wall_e->get_battery_level();
-
-		$this->assertTrue( $collected );
 		$this->assertSame( 1, $battery_used );
 	}
 
@@ -85,14 +90,13 @@ class Wall_ETest extends TestCase {
 		int $expected_battery_used
 	) : void {
 		$wall_e = new WallE(
-			strength: 20,
-			speed   : 10,
-			battery : $start_battery
+			strength       : 20,
+			speed          : 10,
+			current_battery: $start_battery
 		);
 
-		$battery      = $wall_e->get_battery_level();
-		$wall_e->collect( $waste );
-		$battery_used = $battery - $wall_e->get_battery_level();
+		$waste        = new Waste( $waste );
+		$battery_used = $this->get_consumed_battery_for_collect( $wall_e, $waste );
 
 		$this->assertSame( $expected_battery_used, $battery_used );
 	}
@@ -106,11 +110,11 @@ class Wall_ETest extends TestCase {
 	public function provider_battery_after_charge() : array {
 		// Speed - Battery - Expected battery after charge
 		return [
-			'' => [ 10, 50, 50 ], // No charge
-			'' => [ 10, 20, 20 ], // No charge
-			'' => [ 10, 18, 90 ], // Charge is good
-			'' => [ 10, 11, 90 ], // Charge is good, just right
-			'' => [ 10, 10, 0 ]   // Charge failed, battery is empty
+			[ 10, 50, 50 ], // No charge
+			[ 10, 20, 20 ], // No charge
+			[ 10, 18, 90 ], // Charge is good
+			[ 10, 11, 90 ], // Charge is good, just right
+			[ 10, 10, 0 ]   // Charge failed, battery is empty
 		];
 	}
 
@@ -129,14 +133,16 @@ class Wall_ETest extends TestCase {
 		int $expected_battery
 	) : void {
 		$wall_e = new WallE(
-			strength: 20,
-			speed   : $speed,
-			battery : $battery
+			strength       : 20,
+			speed          : $speed,
+			current_battery: $battery
 		);
 
 		try {
 			$wall_e->maybe_charge();
 		} catch ( Wall_E_KOException $e ) {
+			$this->assertSame( 0, $wall_e->get_battery_level() );
+		} catch( BatteryDownException $e ) {
 			$this->assertSame( 0, $wall_e->get_battery_level() );
 		}
 
