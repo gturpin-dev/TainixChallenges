@@ -21,3 +21,6 @@ test: ## Run all phpunit tests
 
 test-group: ## Run phpunit tests based on the group in "group" variable (make test-group group=GROUP_NAME)
 	./vendor/bin/phpunit --group $(group) tests
+
+lint: ## Run Psalm static analysis
+	./vendor/bin/psalm
