@@ -46,9 +46,9 @@ final class Human {
 	 *
 	 * @param string $region
 	 *
-	 * @return void
+	 * @return bool True if the region has been explored, False otherwise
 	 */
-	public function explore_region( string $region ) {
+	public function explore_region( string $region ) : bool {
 		$steps = str_split( $region );
 
 		foreach ( $steps as $step ) {
