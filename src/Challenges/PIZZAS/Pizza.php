@@ -38,6 +38,7 @@ final class Pizza {
 		$ingredient_list = array_map( function ( $ingredient ) use ( $ingredients ) {
 			return $ingredients[ $ingredient ] ?? null;
 		}, $ingredient_list );
+		$ingredient_list = array_filter( $ingredient_list );
 
 		return new static( $ingredient_list );
 	}
