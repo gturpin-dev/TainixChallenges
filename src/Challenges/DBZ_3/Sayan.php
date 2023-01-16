@@ -72,11 +72,11 @@ final class Sayan {
 	 *
 	 * @param Sayan $opponent
 	 *
-	 * @return bool True if a special attack is triggered
+	 * @return bool True if a special attack is triggered, false otherwise
 	 */
-	public function maybe_special_attack( Sayan $opponent ) {
+	public function maybe_special_attack( Sayan $opponent ) : bool {
 		if ( $this->is_paralysed() ) {
-			return;
+			return false;
 		}
 
 		if ( $this->special_attack_counter <= 0 ) {
