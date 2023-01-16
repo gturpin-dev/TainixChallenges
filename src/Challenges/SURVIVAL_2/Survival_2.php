@@ -12,9 +12,11 @@ use Gturpin\TainixChallenges\Challenges\SURVIVAL_2\Island;
 final class Survival_2 extends Challenge {
 	
 	public function solve() : mixed {
-		$data_me['thirst'] = $this->data['thirst'];
-		$data_me['hunger'] = $this->data['hunger'];
-		$data_me['energy'] = $this->data['shape'];
+		$data_me = [
+			'thirst' => $this->data['thirst'] ?? null,
+			'hunger' => $this->data['hunger'] ?? null,
+			'energy' => $this->data['energy'] ?? null,
+		];
 		
 		$me     = new Human( $data_me );
 		$island = new Island( $this->data['island'] ?? [] );

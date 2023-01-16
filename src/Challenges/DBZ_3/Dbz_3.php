@@ -12,8 +12,8 @@ use Gturpin\TainixChallenges\Challenges\DBZ_3\Parser;
 final class Dbz_3 extends Challenge {
 	
 	public function solve() : mixed {
-		$data_vegeta  = Parser::parse( $this->data['vegeta'] ?? [] );
-		$data_sangoku = Parser::parse( $this->data['sangoku'] ?? [] );
+		$data_vegeta  = Parser::parse( (string) $this->data['vegeta'] );
+		$data_sangoku = Parser::parse( (string) $this->data['sangoku'] );
 
 		$vegeta    = new Sayan( $data_vegeta );
 		$sangoku   = new Sayan( $data_sangoku );

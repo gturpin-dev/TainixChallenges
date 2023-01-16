@@ -3,6 +3,7 @@
 namespace Gturpin\TainixChallenges;
 
 use Gturpin\TainixChallenges\Game;
+use Gturpin\TainixChallenges\Challenge;
 
 /**
  * Class to solve dynamically a challenge from the challenge code
@@ -33,7 +34,7 @@ final class ChallengeFactory {
 		}
 
 		// Class must extends Challenge
-		if ( ! is_subclass_of( $challenge_classname, __NAMESPACE__ . '\\Challenge' ) ) {
+		if ( ! is_subclass_of( $challenge_classname, Challenge::class ) ) {
 			throw new \Exception( 'The Challenge class "' . $challenge_classname . '" must extends Challenge' );
 		}
 

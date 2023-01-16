@@ -17,7 +17,7 @@ final class Donatello extends Pizzaiolo {
 	public function prepare_pizza( Pizza $pizza ) : int {
 		$ingredients = $pizza->get_ingredients();
 		$ingredients = array_map( fn( $ingredient ) => $ingredient->get_price(), $ingredients );
-		$price       = max( $ingredients ) * 5;
+		$price       = ! empty( $ingredients ) ? max( $ingredients ) * 5 : 0;
 
 		return $price;
 	}

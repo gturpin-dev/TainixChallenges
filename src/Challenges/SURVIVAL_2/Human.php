@@ -89,7 +89,7 @@ final class Human {
 	 * @return void
 	 */
 	private function sleep() {
-		$this->energy += ( $this->thirst + $this->hunger ) / 2;
+		$this->energy += (int) ( ( $this->thirst + $this->hunger ) / 2 );
 		$this->thirst -= 5;
 		$this->hunger -= 5;
 	}

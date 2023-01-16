@@ -24,6 +24,7 @@ final class Match_Handler {
 	 */
 	public function parse_score( string $score ) : array {
 		[ $team1, $team2, $score1, $score2 ] = array_pad( explode( '_', $score ), 4, null );
+		$parsed_score = [];
 
 		isset( $team1 ) ? $parsed_score[ $team1 ] = (int) $score1 : null;
 		isset( $team2 ) ? $parsed_score[ $team2 ] = (int) $score2 : null;
