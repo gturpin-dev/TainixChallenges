@@ -11,8 +11,6 @@ use Gturpin\TainixChallenges\Challenges\SURVIVAL_2\Island;
  */
 final class Survival_2 extends Challenge {
 	
-	private const ENABLE_LOG = false;
-	
 	public function solve() : mixed {
 		$data_me['thirst'] = $this->data['thirst'];
 		$data_me['hunger'] = $this->data['hunger'];
@@ -32,21 +30,5 @@ final class Survival_2 extends Challenge {
 		self::log( 'Total: ' . $response );
 
 		return $response;
-	}
-
-	/**
-	 * Print something
-	 *
-	 * @param mixed $result
-	 *
-	 * @return void
-	 */
-	public static function log( mixed $string ) : void {
-		if ( ! self::ENABLE_LOG ) {
-			return;
-		}
-
-		echo $string ?: '';
-		echo '<br>';
 	}
 }

@@ -28,7 +28,7 @@ final class Vegeta {
 	 */
 	public function fight( int $opponent ) : bool {
 		if ( $this->power >= $opponent ) {
-			$this->set_strength( $this->strength + floor( $opponent * 0.1 ) );
+			$this->set_strength( $this->strength + (int) floor( $opponent * 0.1 ) );
 			$this->update_power();
 			
 			return true;
