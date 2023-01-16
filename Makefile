@@ -1,6 +1,7 @@
 .PHONY: help, create_challenge, dev, test, test-group
 
 # Variables
+PORT ?= 8000
 
 # Commands
 help: ## Display this help message
@@ -12,8 +13,8 @@ create_challenge: ## Create a new challenge file (make create_challenge code=CHA
 	$(shell ./scripts/new_challenge.sh $(code))
 	./scripts/new_challenge.sh $(code)
 
-dev: ## Launch PHP dev server at localhost:8000
-	php -S localhost:8000
+dev: ## Launch PHP dev server at localhost:8000 for example
+	php -S localhost:$(PORT)
 
 test: ## Run all phpunit tests
 	./vendor/bin/phpunit tests
