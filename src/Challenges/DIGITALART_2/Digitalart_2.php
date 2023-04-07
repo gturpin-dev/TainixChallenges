@@ -30,7 +30,6 @@ final class Digitalart_2 extends Challenge {
 			} );
 		} );
 
-
 		// Sort by number of displays
 		$displays = $displays->sort( function( $a, $b ) {
 			return $a <=> $b;
