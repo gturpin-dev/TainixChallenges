@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Gturpin\TainixChallenges\Challenge;
 
 /**
- * @link TODO : add link to challenge here (https://tainix.fr/challenges/)
+ * @link https://tainix.fr/challenge/CTC-2-La-douche-froide
  */
 final class Digitalart_2 extends Challenge {
 	
@@ -29,13 +29,9 @@ final class Digitalart_2 extends Challenge {
 				$displays[ $account ] += $tweet_displays;
 			} );
 		} );
-
-		// Sort by number of displays
-		$displays = $displays->sort( function( $a, $b ) {
-			return $a <=> $b;
-		} );
 		
-		$original_account = $displays->keys()->last();
+		$displays         = $displays->sort()->reverse();
+		$original_account = $displays->keys()->first();
 		$total_displays   = $original_account ? $displays->get( $original_account ) : 0;
 		$response         = $original_account . ':' . $total_displays;
 		
