@@ -6,7 +6,7 @@ use Gturpin\TainixChallenges\Challenge;
 use Illuminate\Support\Collection;
 
 /**
- * @link TODO : add link to challenge here (https://tainix.fr/challenges/)
+ * @link https://tainix.fr/challenge/CTC-1-Le-grand-saut
  */
 final class Digitalart_1 extends Challenge {
 	
