@@ -36,31 +36,31 @@ class Capsule {
 	}
 
 	/**
-	 * Extract the weight from the Item representation
+	 * Extract the capsule weight from the Item representation
 	 *
 	 * @param string $item Item representation
 	 *
-	 * @return integer The weight
+	 * @return integer The capsule weight
 	 */
 	private static function extract_weight_by_item( string $item ): int {
 		[ $item_code, $item_weight ] = explode( '-', $item );
 
-		$item_weight = (int) floor( $item_weight / 10 );
+		$item_weight = (int) floor( (int) $item_weight / 10 );
 		
 		return $item_weight;
 	}
 
 	/**
-	 * Extract the weight from the Item representation
+	 * Extract the item weight from the Item representation
 	 *
 	 * @param string $item Item representation
 	 *
-	 * @return integer The weight
+	 * @return integer The item weight
 	 */
 	public static function extract_item_weight_by_item( string $item ): int {
 		[ $item_code, $item_weight ] = explode( '-', $item );
 
-		return $item_weight;
+		return (int) $item_weight;
 	}
 
 	/**
