@@ -10,7 +10,6 @@ help: ## Display this help message
 # Get the arg parameter and give it to ./scripts/new_challenge.sh
 create_challenge: ## Create a new challenge file (make create_challenge code=CHALLENGE_CODE)
 	@$(eval code ?=)
-	$(shell ./scripts/new_challenge.sh $(code))
 	./scripts/new_challenge.sh $(code)
 
 dev: ## Launch PHP dev server at localhost:8000 for example
