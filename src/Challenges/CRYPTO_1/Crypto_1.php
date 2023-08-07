@@ -9,12 +9,14 @@ use Gturpin\TainixChallenges\Challenge;
  */
 final class Crypto_1 extends Challenge {
 	
-	protected const USE_DATA_TEST = true;
+	protected const USE_DATA_TEST = false;
 	protected const ENABLE_LOG    = true;
 	
 	public function solve() : mixed {
-		echo '<pre>' . print_r( $this->data, true ) . '</pre>';
-		
-		die;
+		$words  = $this->data['words'] ?? [];
+		$code   = new Code( $words );
+		$result = $code->break();
+
+		return $result;
 	}
 }
