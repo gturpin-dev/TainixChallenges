@@ -17,7 +17,7 @@ abstract class Challenge {
 	/**
 	 * The challenge DATA
 	 */
-	protected array $data;
+	protected ?array $data;
 
 	/**
 	 * Enable the log for this challenge or not
