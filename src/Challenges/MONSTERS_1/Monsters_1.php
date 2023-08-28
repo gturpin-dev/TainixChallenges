@@ -15,7 +15,7 @@ final class Monsters_1 extends Challenge {
 	public function solve() : mixed {
 		$weight  = $this->data[ 'weight' ] ?? 0;
 		$formula = $this->data[ 'formula' ] ?? '';
-		$foods   = $this->data[ 'foods' ] ?? [];
+		$foods   = $this->data[ 'foods' ] ?? '';
 		$foods   = str_split( $foods );
 		$foods   = array_map( fn( $food ) => FoodType::tryFrom( $food ) ?? null, $foods );
 		$foods   = array_filter( $foods );
