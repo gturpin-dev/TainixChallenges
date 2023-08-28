@@ -13,9 +13,9 @@ final class Mario_1 extends Challenge {
 	protected const ENABLE_LOG    = true;
 	
 	public function solve() : mixed {
-		$platforms            = $this->data['platforms'];
+		$platforms            = $this->data['platforms'] ?? '';
 		$platforms            = explode( 'P', $platforms );
-		$platforms            = array_map( fn( $platform ) => strlen( $platform ), $platforms );
+		$platforms            = array_map( 'strlen', $platforms );
 		$who_jumped           = [];
 		$last_who_jumped_on_3 = null;
 
