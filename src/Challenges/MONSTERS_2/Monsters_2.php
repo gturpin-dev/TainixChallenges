@@ -22,12 +22,12 @@ final class Monsters_2 extends Challenge {
 			
 			[ $name, $weight, $formula ] = explode( ':', $monster );
 
-			return new Monster( $name, $weight, $formula );
+			return new Monster( $name, (int) $weight, $formula );
 		}, $monsters );
 		$monsters = new MonsterList( $monsters );
 
 		// Manage the food
-		$foods = $this->data[ 'foods' ] ?? [];
+		$foods = $this->data[ 'foods' ] ?? '';
 		$foods = str_split( $foods, 2 );
 		$foods = array_map( fn( $food ) => Food::from_coded_value( $food ), $foods );
 

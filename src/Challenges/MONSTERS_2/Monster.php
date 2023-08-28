@@ -61,7 +61,9 @@ final class Monster {
 		}
 
 		// Destructure the formula
-		[ $a, $food_type, $b ] = str_split( $formula );
+		/** @var array{0: string, 1: string, 2: string} */
+		$formula = str_split( $formula );
+		[ $a, $food_type, $b ] = $formula;
 
 		// Bail if the food type is not valid
 		$food_types = array_column( FoodType::cases(), 'value' );

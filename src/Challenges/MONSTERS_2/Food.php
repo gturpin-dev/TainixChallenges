@@ -24,7 +24,11 @@ final class Food {
 	 */
 	public static function from_coded_value( string $coded_value ): self {
 		$type   = FoodType::tryFrom( $coded_value[ 0 ] ?? '' ) ?? null;
-		$weight = (int) $coded_value[ 1 ] ?? 0;		
+		$weight = (int) $coded_value[ 1 ];
+
+		if ( is_null( $type ) ) {
+			throw new \InvalidArgumentException( 'The food type isnt valid.' );
+		}
 
 		return new self( $type, $weight );
 	}
