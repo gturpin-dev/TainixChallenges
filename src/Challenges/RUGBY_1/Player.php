@@ -22,6 +22,6 @@ final class Player {
 	 * @return integer The impact power of the player
 	 */
 	public function get_impact_power() : int {
-		return floor( $this->strength * $this->weight * $this->line->get_impact_factor() );
+		return (int) floor( $this->strength * $this->weight * $this->line->get_impact_factor() );
 	}
 }
