@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
  * @group RUGBY_2
  */
 class Rugby_2Test extends TestCase {
+	
 	/**
 	 * Setup the test environment
 	 *

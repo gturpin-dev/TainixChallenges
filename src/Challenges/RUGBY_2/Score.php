@@ -59,4 +59,8 @@ final class Score {
 
 		return $total;
 	}
+
+	public function get_actions() : array {
+		return $this->actions;
+	}
 }
