@@ -23,7 +23,8 @@ final class Score {
 	 * @return void
 	 */
 	public function filter_actions( array $actions ) : void {
-		$actions = array_values( $actions ); // Reset the keys
+		$actions        = array_values( $actions );  // Reset the keys
+		$keys_to_remove = [];                        // To ensure we don't remove an action while looping
 		
 		foreach ( $actions as $key => $action ) {
 			// Bail if not a Conversion
@@ -36,8 +37,13 @@ final class Score {
 			// Remove the Conversion if there is no Try before
 			$previous_action = $actions[ $previous_key ] ?? null;
 			if ( $previous_action !== Action::TRY ) {
-				unset( $actions[ $key ] );
+				$keys_to_remove[] = $key;
 			}
+		}
+
+		// Remove the actions
+		foreach ( $keys_to_remove as $key ) {
+			unset( $actions[ $key ] );
 		}
 
 		$this->actions = $actions;
