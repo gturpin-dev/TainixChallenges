@@ -43,15 +43,8 @@ final class Score {
 	 * @return integer The total score
 	 */
 	public function get_total() : int {
-		$total = array_reduce( $this->actions, function( $score, $action ) {
-			return $score + match ( $action ) {
-				Action::TRY        => 5,
-				Action::CONVERSION => 2,
-				Action::PENALTY    => 3,
-				Action::DROP       => 3,
-			};
-		}, 0 );
-
+		$total = array_reduce( $this->actions, fn( $score, $action ) => $score + $action->get_points(), 0 );
+		
 		return $total;
 	}
 }
