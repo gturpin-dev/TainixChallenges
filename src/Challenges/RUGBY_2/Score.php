@@ -30,7 +30,13 @@ final class Score {
 			// Bail if not a Conversion
 			if ( $action !== Action::CONVERSION ) continue;
 
-			// Bail if key doesn't exist
+			// Remove the Conversion if it's the first action
+			if ( $key === 0 ) {
+				$keys_to_remove[] = $key;
+				continue;
+			}
+
+			// Bail if previous key doesn't exist
 			$previous_key = $key - 1;
 			if ( ! array_key_exists( $previous_key, $actions ) ) continue;
 			
