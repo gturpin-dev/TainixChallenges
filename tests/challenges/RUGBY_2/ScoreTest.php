@@ -73,6 +73,15 @@ class ScoreTest extends TestCase {
 					Action::CONVERSION,
 				]
 			],
+			[ // Remove bad action even if it's first item of the array
+				'actions' => [
+					Action::CONVERSION,
+					Action::TRY,
+				],
+				'expected' => [
+					Action::TRY,
+				]
+			]
 		];
 	}
 	
