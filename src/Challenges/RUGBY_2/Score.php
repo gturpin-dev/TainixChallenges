@@ -23,12 +23,18 @@ final class Score {
 	 * @return void
 	 */
 	public function filter_actions( array $actions ) : void {
+		$actions = array_values( $actions ); // Reset the keys
+		
 		foreach ( $actions as $key => $action ) {
 			// Bail if not a Conversion
 			if ( $action !== Action::CONVERSION ) continue;
 
+			// Bail if key doesn't exist
+			$previous_key = $key - 1;
+			if ( ! array_key_exists( $previous_key, $actions ) ) continue;
+			
 			// Remove the Conversion if there is no Try before
-			$previous_action = $actions[ $key - 1 ] ?? null;
+			$previous_action = $actions[ $previous_key ] ?? null;
 			if ( $previous_action !== Action::TRY ) {
 				unset( $actions[ $key ] );
 			}
@@ -44,7 +50,7 @@ final class Score {
 	 */
 	public function get_total() : int {
 		$total = array_reduce( $this->actions, fn( $score, $action ) => $score + $action->get_points(), 0 );
-		
+
 		return $total;
 	}
 }

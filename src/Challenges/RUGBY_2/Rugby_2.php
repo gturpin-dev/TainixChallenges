@@ -13,8 +13,8 @@ final class Rugby_2 extends Challenge {
 	protected const ENABLE_LOG    = true;
 	
 	public function solve() : mixed {
-		$actions = $this->data['actions'] ?? [];
-		$actions = str_split( $actions );
+		$actions = $this->data['actions'] ?? '';
+		$actions = str_split( (string) $actions );
 		$actions = array_map( fn( $action ) => Action::from( $action ), $actions );
 
 		$score = new Score();
