@@ -27,12 +27,12 @@ final class Order {
 	public static function from_raw( string $raw_data ): self {
 		[$temperature, $chocolate_type, $spice_type, $event_type] = array_pad( explode( ',', $raw_data ), 4, null );
 
-		$chocolate_type = ChocolateType::tryFrom( $chocolate_type );
-		$spice_type     = SpiceType::tryFrom( $spice_type );
-		$event_type     = Event::tryFrom( $event_type );
+		$chocolate_type = ChocolateType::tryFrom( $chocolate_type ?? '' );
+		$spice_type     = SpiceType::tryFrom( $spice_type ?? '' );
+		$event_type     = Event::tryFrom( $event_type ?? '' );
 		
 		return new self(
-			$temperature,
+			(int) $temperature,
 			$chocolate_type,
 			$spice_type,
 			$event_type,
