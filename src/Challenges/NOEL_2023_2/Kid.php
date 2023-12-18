@@ -16,7 +16,7 @@ final class Kid {
 	public static function from_raw( string $raw_data ) : self {
 		[$name, $fear_factor] = explode( '_', $raw_data );
 
-		return new self( $name, $fear_factor );
+		return new self( $name, (int) $fear_factor );
 	}
 
 	public function get_fear_factor() : int {
