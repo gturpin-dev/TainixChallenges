@@ -24,15 +24,17 @@ final class Noel_2023_4 extends Challenge {
 		foreach ( $steps as $step ) {
 			$step = Direction::tryFrom( $step );
 
+			// Bail early if the step is invalid
 			if ( is_null( $step ) ) {
-				throw new \Exception( sprintf( 'The step "%s" is not valid', $step ) );
+				continue;
 			}
 
 			$thief->move( $step );
 
 			// If the thief is on a trap, add the trap id to the result
-			$current_traps = $garden->get_traps_at( $thief->get_position() ) ?? [];
+			$current_traps = $garden->get_traps_at( $thief->get_position() );
 
+			// Bail early if there is no trap at the current position
 			if ( empty( $current_traps ) ) {
 				continue;
 			}

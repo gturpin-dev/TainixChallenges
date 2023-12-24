@@ -22,6 +22,11 @@ final class Garden extends Grid {
 		protected array $traps,
 	) {}
 
+	/**
+	 * Get the traps at a given position
+	 *
+	 * @param Position $position The position to check
+	 */
 	public function get_traps_at( Position $position ) : array {
 		return array_filter( $this->traps, fn( Trap $trap ) => in_array( $position, $trap->get_positions() ) );
 	}

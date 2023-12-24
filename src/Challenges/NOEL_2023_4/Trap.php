@@ -53,7 +53,7 @@ final class Trap {
 		[ $id, $size, $position ] = explode( ':', $raw_data );
 		[ $x, $y ]                = explode( ';', $position );
 
-		return new self( $id, $size, new Position( $x, $y ) );
+		return new self( $id, (int) $size, new Position( (int) $x, (int) $y ) );
 	}
 
 	/**
