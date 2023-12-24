@@ -15,6 +15,8 @@ final class Noel_2023_4 extends Challenge {
 	public function solve() : mixed {
 		$steps  = $this->data['parcours'] ?? '';
 		$steps  = str_split( $steps );
+		$steps  = array_map( fn( $step ) => Direction::tryFrom( $step ), $steps );
+		$steps  = array_filter( $steps );
 		$traps  = $this->data['pieges'] ?? [];
 		$traps  = array_map( fn( $trap ) => Trap::from_raw( $trap ), $traps );
 		$garden = new Garden( new Grid( 10, 10 ), $traps );
@@ -22,13 +24,6 @@ final class Noel_2023_4 extends Challenge {
 		$result = '';
 	
 		foreach ( $steps as $step ) {
-			$step = Direction::tryFrom( $step );
-
-			// Bail early if the step is invalid
-			if ( is_null( $step ) ) {
-				continue;
-			}
-
 			$thief->move( $step );
 
 			// If the thief is on a trap, add the trap id to the result
